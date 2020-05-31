@@ -39,10 +39,10 @@ var getBarColor = function (player) {
   return 'hsl(240, ' + Math.floor(Math.random() * 100) + '%, 63%)';
 };
 
-var getBar = function (ctx, i, time, player, maxTime) {
+var getBar = function (ctx, i, time, player, maxTime, barColor) {
   ctx.fillStyle = '#000';
   ctx.fillText(Math.round(time), CLOUD_X + CHART_SPACE_LEFT + BAR_WIDTH * i + BAR_GAP * i, CLOUD_HEIGHT - Math.round(((barHeight * time) / maxTime)));
-  ctx.fillStyle = getBarColor(player);
+  ctx.fillStyle = barColor;
   ctx.fillRect(CLOUD_X + CHART_SPACE_LEFT + BAR_WIDTH * i + BAR_GAP * i, CLOUD_HEIGHT - Math.round(((barHeight * time) / maxTime)) + BAR_TEXT_SPACE, 40, barHeight * time / maxTime - HEADING_LINE_HEIGHT - CHART_SPACE_BOTTOM - BAR_TEXT_SPACE);
   ctx.fillStyle = '#000';
   ctx.fillText(player, CLOUD_X + CHART_SPACE_LEFT + BAR_WIDTH * i + BAR_GAP * i, (CLOUD_HEIGHT - Math.round(((barHeight * time) / maxTime)) + BAR_TEXT_SPACE) + barHeight * time / maxTime - HEADING_LINE_HEIGHT - CHART_SPACE_BOTTOM + BAR_TEXT_SPACE);
@@ -60,6 +60,7 @@ window.renderStatistics = function (ctx, players, times) {
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < players.length; i++) {
-    getBar(ctx, i, times[i], players[i], maxTime);
+    var barColor = getBarColor(players[i]);
+    getBar(ctx, i, times[i], players[i], maxTime, barColor);
   }
 };
