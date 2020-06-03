@@ -58,7 +58,6 @@ window.renderStatistics = function (ctx, players, times) {
   ctx.fillText('Список результатов:', CLOUD_X + HEADING_GAP_X, CLOUD_Y + HEADING_GAP_Y + HEADING_LINE_HEIGHT);
 
   var maxTime = getMaxElement(times);
-
   for (var i = 0; i < players.length; i++) {
     var barColor = getBarColor(players[i]);
     getBar(ctx, i, times[i], players[i], maxTime, barColor);
