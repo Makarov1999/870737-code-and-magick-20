@@ -99,7 +99,7 @@ var setupSimilarBlock = document.querySelector('.setup-similar');
 var userNameInput = document.querySelector('.setup-user-name');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
-var wizardsCoat = document.querySelector('.setup-wizard .wizard-coat')
+var wizardsCoat = document.querySelector('.setup-wizard .wizard-coat');
 var wizardsEyes = document.querySelector('.setup-wizard .wizard-eyes');
 var fireballColor = document.querySelector('.setup-fireball-wrap');
 var wizardsCoatInput = document.querySelector('.setup-wizard-coat');
@@ -173,7 +173,7 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
-userNameInput.addEventListener('invalid', function (evt) {
+userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validity.tooShort) {
     userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
   } else if (userNameInput.validity.tooLong) {
