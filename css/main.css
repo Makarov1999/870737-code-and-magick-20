@@ -750,7 +750,11 @@ input[type=radio]:checked + .review-mark-label
 
 .setup-close
 {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
     font-size: 70px;
+    vertical-align: middle;
 
     top: 20px;
     right: 20px;

@@ -105,7 +105,7 @@ var fireballColor = document.querySelector('.setup-fireball-wrap');
 var wizardsCoatInput = document.querySelector('.setup-wizard-coat');
 var wizardsEyesInput = document.querySelector('.setup-wizard-eyes');
 var fireballColorInput = document.querySelector('.setup-fireball-color');
-
+var wizardNameText = document.querySelector('.setup-user-name');
 
 var onPopupEscPress = function (evt) {
   if (evt.key === 'Escape') {
@@ -173,6 +173,11 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
+wizardNameText.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Escape') {
+    evt.stopPropagation();
+  }
+});
 userNameInput.addEventListener('invalid', function () {
   if (userNameInput.validity.tooShort) {
     userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
