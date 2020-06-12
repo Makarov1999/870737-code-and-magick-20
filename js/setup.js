@@ -169,6 +169,7 @@ setupClose.addEventListener('click', function () {
 
 setupClose.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
+    evt.preventDefault();
     closePopup();
   }
 });
