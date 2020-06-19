@@ -38,6 +38,9 @@
   var wizardsEyesInput = document.querySelector('.setup-wizard-eyes');
   var fireballColorInput = document.querySelector('.setup-fireball-color');
   var wizardNameText = document.querySelector('.setup-user-name');
+  var startSetupPositionTop = '80px';
+  var startSetupPositionLeft = '50%';
+
 
   var onPopupEscPress = function (evt) {
     if (evt.key === 'Escape') {
@@ -83,6 +86,8 @@
     wizardsCoat.removeEventListener('click', changeWizardsCoat);
     wizardsEyes.removeEventListener('click', changeWizardsEyes);
     fireballColor.removeEventListener('click', changeFireballColor);
+    setup.style.top = startSetupPositionTop;
+    setup.style.left = startSetupPositionLeft;
   };
 
   setupOpen.addEventListener('click', function () {
