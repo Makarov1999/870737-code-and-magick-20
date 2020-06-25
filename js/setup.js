@@ -6,14 +6,14 @@
   var getWizardElement = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
     return wizardElement;
   };
 
   var renderWizards = function (wizards) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < wizards.length; i++) {
+    for (var i = 0; i < window.data.wizardsCount; i++) {
       var wizardElement = getWizardElement(wizards[i]);
       fragment.appendChild(wizardElement);
     }
@@ -25,8 +25,7 @@
   var setup = document.querySelector('.setup');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
   var wizardsList = document.querySelector('.setup-similar-list');
-  var wizards = window.data.generateRandomWizards(window.data.wizardsCount);
-  renderWizards(wizards);
+  window.backend.load('https://javascript.pages.academy/code-and-magick/data', renderWizards, errorHandler);
   var setupSimilarBlock = document.querySelector('.setup-similar');
   var userNameInput = document.querySelector('.setup-user-name');
   var setupOpen = document.querySelector('.setup-open');
@@ -40,6 +39,7 @@
   var wizardNameText = document.querySelector('.setup-user-name');
   var startSetupPositionTop = '80px';
   var startSetupPositionLeft = '50%';
+  var setupForm = document.querySelector('.setup-wizard-form');
 
 
   var onPopupEscPress = function (evt) {
@@ -90,6 +90,18 @@
     setup.style.left = startSetupPositionLeft;
   };
 
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
   setupOpen.addEventListener('click', function () {
     openPopup();
   });
@@ -117,6 +129,7 @@
       evt.stopPropagation();
     }
   });
+
   userNameInput.addEventListener('invalid', function () {
     if (userNameInput.validity.tooShort) {
       userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
@@ -128,6 +141,12 @@
       userNameInput.setCustomValidity('');
     }
   });
+
+  setupForm.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(setupForm), closePopup, errorHandler);
+    evt.preventDefault();
+  });
+
   window.setup = {
     setupDialogElement: setup
   };
