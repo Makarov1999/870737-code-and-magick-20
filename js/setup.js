@@ -6,6 +6,7 @@
   var eyesColor = 'black';
   var wizards = [];
 
+
   var getWizardElement = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
@@ -24,7 +25,7 @@
 
     var fragment = document.createDocumentFragment();
     for (var j = 0; j < window.data.wizardsCount; j++) {
-      var wizardElement = getWizardElement(wizardsMagic[i]);
+      var wizardElement = getWizardElement(wizardsMagic[j]);
       fragment.appendChild(wizardElement);
     }
     wizardsList.appendChild(fragment);
@@ -55,6 +56,7 @@
       if (rankDiff === 0) {
         rankDiff = wizards.indexOf(left) - wizards.indexOf(right);
       }
+
       return rankDiff;
     }));
   };
@@ -85,25 +87,25 @@
     }
   };
 
-  var changeWizardsCoat = window.debounce(
-      function (evt) {
-        evt.preventDefault();
-        var wizardsCoatColor = window.data.getRandElementOfArray(window.data.WIZARD_COAT_COLORS);
-        coatColor = wizardsCoatColor;
-        wizardsCoat.style.fill = wizardsCoatColor;
-        wizardsCoatInput.value = wizardsCoatColor;
-        updateWizards();
-      });
+  var debounceUpdateWizards = window.debounce(updateWizards);
 
-  var changeWizardsEyes = window.debounce(
-      function (evt) {
-        evt.preventDefault();
-        var wizardsEyesColor = window.data.getRandElementOfArray(window.data.WIZARD_EYES_COLORS);
-        eyesColor = wizardsEyesColor;
-        wizardsEyes.style.fill = wizardsEyesColor;
-        wizardsEyesInput.value = wizardsEyesColor;
-        updateWizards();
-      });
+  var changeWizardsCoat = function (evt) {
+    evt.preventDefault();
+    var wizardsCoatColor = window.data.getRandElementOfArray(window.data.WIZARD_COAT_COLORS);
+    coatColor = wizardsCoatColor;
+    wizardsCoat.style.fill = wizardsCoatColor;
+    wizardsCoatInput.value = wizardsCoatColor;
+    debounceUpdateWizards();
+  };
+
+  var changeWizardsEyes = function (evt) {
+    evt.preventDefault();
+    var wizardsEyesColor = window.data.getRandElementOfArray(window.data.WIZARD_EYES_COLORS);
+    eyesColor = wizardsEyesColor;
+    wizardsEyes.style.fill = wizardsEyesColor;
+    wizardsEyesInput.value = wizardsEyesColor;
+    debounceUpdateWizards();
+  };
 
   var changeFireballColor = function (evt) {
     evt.preventDefault();
